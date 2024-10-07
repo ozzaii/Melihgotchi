@@ -26,6 +26,7 @@ body {
 }
 
 .game-container {
+    position: relative;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 20px;
@@ -35,52 +36,38 @@ body {
     width: 400px;
 }
 
-h1 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px var(--primary-color);
-}
-
 #petContainer {
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* Creates a square container */
+    padding-bottom: 80%; /* Reduced to make pet smaller */
     margin-bottom: 20px;
-    overflow: hidden; /* Add this line */
+    overflow: hidden;
 }
 
-#pet {
+.pet-sprite {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transition: all 0.3s ease;
-}
-
-.pet-sprite {
-    width: 100%;
-    height: 100%;
+    width: 80%; /* Make pet smaller */
+    height: 80%; /* Make pet smaller */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .pet-sprite.run {
-    animation: run 0.5s steps(2) infinite;
+    animation: run 0.8s steps(8) infinite; /* Adjusted for 8 frames */
 }
 
 @keyframes run {
-    0% { transform: translate(-50%, -50%) scaleX(1); }
-    50% { transform: translate(-50%, -50%) scaleX(-1); }
-    100% { transform: translate(-50%, -50%) scaleX(1); }
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 0; }
 }
 
 #thoughtBubble {
     position: absolute;
-    top: 0;
+    top: -60px; /* Adjust as needed */
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -90,13 +77,20 @@ h1 {
     font-size: 0.7em;
     max-width: 80%;
     opacity: 0;
-    transition: opacity 0.3s ease, top 0.3s ease;
+    transition: opacity 0.3s ease;
     z-index: 10;
 }
 
 #thoughtBubble.visible {
     opacity: 1;
-    top: -60px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--primary-color);
+    position: relative;
+    z-index: 5; /* Ensure title is above thought bubble */
 }
 
 #petSpeech {
