@@ -82,6 +82,7 @@ function petPet() {
         pet.state = 'idle';
         updatePetSprite();
     }, 2000);
+    updateUI();
 }
 
 function playWithPet() {
@@ -92,8 +93,8 @@ function playWithPet() {
 }
 
 function doCosmiccardio() {
-    pet.state = 'run';
-    updatePetSprite();
+    const petElement = document.getElementById('pet');
+    petElement.className = 'run';
     showThought("Time to outrun my existential dread!");
     pet.energy = Math.max(0, pet.energy - 20);
     pet.happiness = Math.min(100, pet.happiness + 10);
@@ -182,10 +183,9 @@ document.querySelectorAll('.food-item').forEach(item => {
 document.getElementById('playBtn').addEventListener('click', playWithPet);
 document.getElementById('sportBtn').addEventListener('click', doCosmiccardio);
 
-// Swipe to pet
+// Tap to pet
 const petElement = document.getElementById('pet');
-const hammer = new Hammer(petElement);
-hammer.on('swipe', petPet);
+petElement.addEventListener('click', petPet);
 
 // Game loop
 function gameLoop() {
