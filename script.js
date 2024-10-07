@@ -39,7 +39,7 @@ function updatePetState() {
 // Update pet sprite based on state
 function updatePetSprite() {
     const petElement = document.getElementById('pet');
-    petElement.className = pet.state;
+    petElement.src = `https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif`;
 }
 
 // Interaction functions
@@ -214,3 +214,19 @@ setInterval(() => {
         showThought(thoughts[Math.floor(Math.random() * thoughts.length)]);
     }
 }, 15000);
+
+// Make sure pet is responsive on mobile
+function handleResize() {
+    const petContainer = document.getElementById('petContainer');
+    const pet = document.getElementById('pet');
+    const containerWidth = petContainer.offsetWidth;
+    const containerHeight = petContainer.offsetHeight;
+    const petAspectRatio = 1; // Assuming the pet gif is square
+
+    let petSize = Math.min(containerWidth, containerHeight) * 0.8;
+    pet.style.width = `${petSize}px`;
+    pet.style.height = `${petSize}px`;
+}
+
+window.addEventListener('resize', handleResize);
+handleResize(); // Call once to set initial size
