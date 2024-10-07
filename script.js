@@ -40,6 +40,7 @@ function updatePetState() {
 function updatePetSprite() {
     const petElement = document.getElementById('pet');
     petElement.src = `https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif`;
+    petElement.className = pet.state; // Add this line
 }
 
 // Interaction functions
@@ -98,6 +99,9 @@ function doCosmiccardio() {
     pet.energy = Math.max(0, pet.energy - 20);
     pet.happiness = Math.min(100, pet.happiness + 10);
     updateUI();
+    
+    // Force a repaint to trigger the animation
+    petElement.offsetHeight;
     
     setTimeout(() => {
         pet.state = 'idle';
@@ -183,9 +187,14 @@ document.getElementById('playBtn').addEventListener('click', playWithPet);
 document.getElementById('sportBtn').addEventListener('click', doCosmiccardio);
 
 // Swipe to pet
+// Replace the existing Hammer.js code with this
 const petElement = document.getElementById('pet');
 const hammer = new Hammer(petElement);
-hammer.on('swipe', petPet);
+
+// Handle both tap and swipe
+hammer.on('tap swipe', function(ev) {
+    petPet();
+});
 
 // Game loop
 function gameLoop() {
