@@ -34,30 +34,32 @@ body {
     text-align: center;
     max-width: 100%;
     width: 400px;
+    overflow: hidden;
 }
 
 #petContainer {
     position: relative;
     width: 100%;
-    padding-bottom: 80%; /* Reduced to make pet smaller */
+    padding-bottom: 80%;
+    margin-top: 60px;
     margin-bottom: 20px;
-    overflow: hidden;
+    overflow: visible;
 }
 
-.pet-sprite {
+#pet {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%; /* Make pet smaller */
-    height: 80%; /* Make pet smaller */
+    width: 70%;
+    height: 70%;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.pet-sprite.run {
-    animation: run 0.8s steps(8) infinite; /* Adjusted for 8 frames */
+#pet.run {
+    animation: run 0.8s steps(8) infinite;
 }
 
 @keyframes run {
@@ -67,7 +69,7 @@ body {
 
 #thoughtBubble {
     position: absolute;
-    top: -60px; /* Adjust as needed */
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -85,12 +87,23 @@ body {
     opacity: 1;
 }
 
+#thoughtBubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: white transparent;
+    transform: translateX(-50%);
+}
+
 h1 {
     font-size: 1.5em;
     margin-bottom: 20px;
     text-shadow: 0 0 10px var(--primary-color);
     position: relative;
-    z-index: 5; /* Ensure title is above thought bubble */
+    z-index: 5;
 }
 
 #petSpeech {
@@ -107,6 +120,8 @@ h1 {
     grid-template-columns: 1fr;
     gap: 10px;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 5;
 }
 
 .stat {
@@ -135,6 +150,8 @@ h1 {
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 5;
 }
 
 .cosmic-btn {
@@ -164,6 +181,8 @@ h1 {
     border-radius: 10px;
     padding: 10px;
     margin-top: 20px;
+    position: relative;
+    z-index: 6;
 }
 
 .food-item {
@@ -194,6 +213,8 @@ h1 {
     border-radius: 10px;
     padding: 10px;
     margin-top: 20px;
+    position: relative;
+    z-index: 5;
 }
 
 #gameArea {
