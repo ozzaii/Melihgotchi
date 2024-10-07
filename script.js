@@ -8,22 +8,18 @@ const pet = {
     lastUpdate: Date.now()
 };
 
-// Update pet stats
-function updatePetStats() {
-    const now = Date.now();
-    const timePassed = (now - pet.lastUpdate) / 1000; // in seconds
-
-    pet.hunger = Math.max(0, Math.min(100, pet.hunger - timePassed * 0.1));
-    pet.happiness = Math.max(0, Math.min(100, pet.happiness - timePassed * 0.05));
-    pet.energy = Math.max(0, Math.min(100, pet.energy - timePassed * 0.08));
-    pet.existentialDread = Math.max(0, Math.min(100, pet.existentialDread + timePassed * 0.03));
-
-    pet.lastUpdate = now;
-
-    updatePetState();
-    updatePetSprite();
-    updateUI();
+// Update this function in script.js
+function updatePetSprite() {
+    const petElement = document.getElementById('pet');
+    if (pet.state === 'run') {
+        petElement.src = 'run.lq.gif';
+        petElement.classList.remove('idle-animation');
+    } else {
+        petElement.src = 'idle.lq.gif';
+        petElement.classList.add('idle-animation');
+    }
 }
+
 
 // Update pet state based on stats
 function updatePetState() {
@@ -94,15 +90,12 @@ function playWithPet() {
 
 function doCosmiccardio() {
     console.log("Cosmic cardio started!");
-    const petElement = document.getElementById('pet');
-    petElement.className = 'run';
+    pet.state = 'run';
+    updatePetSprite();
     showThought("Time to outrun my existential dread!");
     pet.energy = Math.max(0, pet.energy - 20);
     pet.happiness = Math.min(100, pet.happiness + 10);
     updateUI();
-    
-    // Force a reflow to ensure the class change takes effect
-    void petElement.offsetWidth;
     
     setTimeout(() => {
         pet.state = 'idle';
@@ -174,36 +167,34 @@ function showThought(thought) {
 
 // Event listeners
 document.getElementById('feedBtn').addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default touch behavior
+    e.preventDefault();
     document.getElementById('feedMenu').classList.toggle('hidden');
 });
 
 document.querySelectorAll('.food-item').forEach(item => {
     item.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default touch behavior
+        e.preventDefault();
         const food = e.currentTarget.getAttribute('data-food');
         feedPet(food);
     });
 });
 
 document.getElementById('playBtn').addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default touch behavior
+    e.preventDefault();
     playWithPet();
 });
 
 document.getElementById('sportBtn').addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent default touch behavior
+    e.preventDefault();
     doCosmiccardio();
 });
 
 // Tap to pet (works on both mobile and desktop)
 const petElement = document.getElementById('pet');
-['click', 'touchstart'].forEach(evt => 
-    petElement.addEventListener(evt, (e) => {
-        e.preventDefault(); // Prevent default touch behavior
-        petPet();
-    }, false)
-);
+petElement.addEventListener('click', (e) => {
+    e.preventDefault();
+    petPet();
+});
 
 // Prevent default touch behavior on the entire game container
 document.querySelector('.game-container').addEventListener('touchstart', (e) => {
