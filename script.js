@@ -93,12 +93,16 @@ function playWithPet() {
 }
 
 function doCosmiccardio() {
+    console.log("Cosmic cardio started!");
     const petElement = document.getElementById('pet');
     petElement.className = 'run';
     showThought("Time to outrun my existential dread!");
     pet.energy = Math.max(0, pet.energy - 20);
     pet.happiness = Math.min(100, pet.happiness + 10);
     updateUI();
+    
+    // Force a reflow to ensure the class change takes effect
+    void petElement.offsetWidth;
     
     setTimeout(() => {
         pet.state = 'idle';
@@ -169,23 +173,42 @@ function showThought(thought) {
 }
 
 // Event listeners
-document.getElementById('feedBtn').addEventListener('click', () => {
+document.getElementById('feedBtn').addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent default touch behavior
     document.getElementById('feedMenu').classList.toggle('hidden');
 });
 
 document.querySelectorAll('.food-item').forEach(item => {
     item.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default touch behavior
         const food = e.currentTarget.getAttribute('data-food');
         feedPet(food);
     });
 });
 
-document.getElementById('playBtn').addEventListener('click', playWithPet);
-document.getElementById('sportBtn').addEventListener('click', doCosmiccardio);
+document.getElementById('playBtn').addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent default touch behavior
+    playWithPet();
+});
 
-// Tap to pet
+document.getElementById('sportBtn').addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent default touch behavior
+    doCosmiccardio();
+});
+
+// Tap to pet (works on both mobile and desktop)
 const petElement = document.getElementById('pet');
-petElement.addEventListener('click', petPet);
+['click', 'touchstart'].forEach(evt => 
+    petElement.addEventListener(evt, (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        petPet();
+    }, false)
+);
+
+// Prevent default touch behavior on the entire game container
+document.querySelector('.game-container').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+}, { passive: false });
 
 // Game loop
 function gameLoop() {
