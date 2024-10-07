@@ -43,37 +43,24 @@ h1 {
 
 #petContainer {
     position: relative;
-    height: 200px;
+    width: 100%;
+    padding-bottom: 100%; /* Creates a square container */
     margin-bottom: 20px;
 }
 
 #pet {
-    width: 150px;
-    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-#pet.idle {
-    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/idle.lq.gif');
-}
-
-#pet.run {
-    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/run.lq.gif');
-}
-
-#pet.happy {
-    animation: bounce 0.5s ease infinite alternate;
-}
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10px); }
 }
 
 #thoughtBubble {
     position: absolute;
-    top: -60px;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -81,9 +68,10 @@ h1 {
     padding: 10px;
     border-radius: 15px;
     font-size: 0.7em;
-    max-width: 200px;
+    max-width: 80%;
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 10;
 }
 
 #thoughtBubble::after {
@@ -103,7 +91,7 @@ h1 {
 
 #petSpeech {
     position: absolute;
-    bottom: -30px;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.8em;
@@ -217,9 +205,9 @@ h1 {
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+    0% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, -55%); }
+    100% { transform: translate(-50%, -50%); }
 }
 
 #pet {
