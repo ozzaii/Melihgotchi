@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --primary-color: #00ffff;
+    --secondary-color: #ff00ff;
+    --background-color: #0a0a2a;
+    --text-color: #ffffff;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px var(--primary-color);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+#petContainer {
+    position: relative;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+#pet {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+#pet.idle {
+    content: url('idle.lq.gif.gif');
+}
+
+#pet.run {
+    content: url('run.lq.gif');
+}
+
+#thoughtBubble {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#thoughtBubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: white transparent;
+    transform: translateX(-50%);
+}
+
+#thoughtBubble.visible {
+    opacity: 1;
+}
+
+#petSpeech {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    text-align: left;
+}
+
+.stat-bar {
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s ease;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.cosmic-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: var(--text-color);
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.cosmic-btn:hover {
+    transform: scale(1.05);
+}
+
+.cosmic-btn:active {
+    transform: scale(0.95);
+}
+
+.feed-menu {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.food-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.food-item:hover {
+    transform: scale(1.1);
+}
+
+.food-item img {
+    width: 48px;
+    height: 48px;
+}
+
+.food-item span {
+    font-size: 0.6em;
+    margin-top: 5px;
+}
+
+#miniGame {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#gameArea {
+    height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+#pet {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--primary-color); }
+    50% { box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color); }
+    100% { box-shadow: 0 0 5px var(--primary-color); }
+}
+
+.game-container {
+    animation: glow 4s ease-in-out infinite;
+}
