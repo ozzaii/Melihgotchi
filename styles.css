@@ -55,11 +55,11 @@ h1 {
 }
 
 #pet.idle {
-    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/idle.lq.gif');
+    content: url('https://raw.githubusercontent.com/yourusername/your-repo-name/main/idle.lq.gif');
 }
 
 #pet.run {
-    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/run.lq.gif');
+    content: url('https://raw.githubusercontent.com/yourusername/your-repo-name/main/run.lq.gif');
 }
 
 #pet.happy {
