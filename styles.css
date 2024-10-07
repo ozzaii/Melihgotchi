@@ -7,6 +7,12 @@
     --text-color: #ffffff;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Press Start 2P', cursive;
     background-color: var(--background-color);
@@ -14,9 +20,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    overflow: hidden;
+    padding: 20px;
 }
 
 .game-container {
@@ -25,12 +31,12 @@ body {
     padding: 20px;
     box-shadow: 0 0 20px var(--primary-color);
     text-align: center;
-    max-width: 600px;
-    width: 100%;
+    max-width: 100%;
+    width: 400px;
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 20px;
     text-shadow: 0 0 10px var(--primary-color);
 }
@@ -45,14 +51,24 @@ h1 {
     width: 150px;
     height: 150px;
     object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 #pet.idle {
-    content: url('idle.lq.gif.gif');
+    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/idle.lq.gif');
 }
 
 #pet.run {
-    content: url('run.lq.gif');
+    content: url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/run.lq.gif');
+}
+
+#pet.happy {
+    animation: bounce 0.5s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
 }
 
 #thoughtBubble {
@@ -64,6 +80,8 @@ h1 {
     color: black;
     padding: 10px;
     border-radius: 15px;
+    font-size: 0.7em;
+    max-width: 200px;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -94,20 +112,22 @@ h1 {
 
 .stats-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 10px;
     margin-bottom: 20px;
 }
 
 .stat {
     text-align: left;
+    font-size: 0.6em;
 }
 
 .stat-bar {
-    height: 20px;
+    height: 15px;
     background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+    border-radius: 7px;
     overflow: hidden;
+    margin-top: 5px;
 }
 
 .bar-fill {
@@ -119,7 +139,9 @@ h1 {
 
 .controls {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
@@ -127,9 +149,9 @@ h1 {
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: none;
     color: var(--text-color);
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-family: inherit;
-    font-size: 0.8em;
+    font-size: 0.7em;
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.1s ease;
@@ -165,12 +187,13 @@ h1 {
 }
 
 .food-item img {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
 }
 
 .food-item span {
-    font-size: 0.6em;
+    font-size: 0.5em;
     margin-top: 5px;
 }
 
@@ -186,6 +209,7 @@ h1 {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .hidden {
@@ -210,4 +234,42 @@ h1 {
 
 .game-container {
     animation: glow 4s ease-in-out infinite;
+}
+
+@keyframes feedAnimation {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50%, -50%) scale(0.5); }
+    100% { transform: translate(100%, 0) scale(0); }
+}
+
+.feeding {
+    animation: feedAnimation 1s forwards;
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .cosmic-btn {
+        font-size: 0.6em;
+        padding: 8px 12px;
+    }
+
+    .stat {
+        font-size: 0.5em;
+    }
+
+    .food-item img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .food-item span {
+        font-size: 0.4em;
+    }
 }
