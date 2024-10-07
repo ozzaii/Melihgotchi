@@ -39,7 +39,7 @@ function updatePetState() {
 // Update pet sprite based on state
 function updatePetSprite() {
     const petElement = document.getElementById('pet');
-    petElement.src = `https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif`;
+    petElement.style.backgroundImage = `url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif')`;
     petElement.className = `pet-sprite ${pet.state}`;
 }
 
