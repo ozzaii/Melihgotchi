@@ -44,27 +44,32 @@ function updatePetSprite() {
 
 // Interaction functions
 function feedPet(food) {
-    switch(food) {
-        case 'cosmic-burger':
-            pet.hunger = Math.min(100, pet.hunger + 30);
-            pet.existentialDread = Math.max(0, pet.existentialDread - 10);
-            break;
-        case 'quantum-pizza':
-            pet.hunger = Math.min(100, pet.hunger + 20);
-            pet.happiness = Math.min(100, pet.happiness + 10);
-            break;
-        case 'etheric-salad':
-            pet.hunger = Math.min(100, pet.hunger + 10);
-            pet.energy = Math.min(100, pet.energy + 20);
-            break;
-    }
-    pet.state = 'eating';
-    updatePetSprite();
-    showThought("Yum! Cosmic deliciousness!");
+    const foodElement = event.currentTarget.querySelector('img');
+    foodElement.classList.add('feeding');
+    
     setTimeout(() => {
-        pet.state = 'idle';
+        switch(food) {
+            case 'cosmic-burger':
+                pet.hunger = Math.min(100, pet.hunger + 30);
+                pet.existentialDread = Math.max(0, pet.existentialDread - 10);
+                break;
+            case 'quantum-pizza':
+                pet.hunger = Math.min(100, pet.hunger + 20);
+                pet.happiness = Math.min(100, pet.happiness + 10);
+                break;
+            case 'etheric-salad':
+                pet.hunger = Math.min(100, pet.hunger + 10);
+                pet.energy = Math.min(100, pet.energy + 20);
+                break;
+        }
+        pet.state = 'happy';
         updatePetSprite();
-    }, 3000);
+        showThought("Yum! Cosmic deliciousness!");
+        updateUI();
+        
+        foodElement.classList.remove('feeding');
+        document.getElementById('feedMenu').classList.add('hidden');
+    }, 1000);
 }
 
 function petPet() {
@@ -83,14 +88,22 @@ function playWithPet() {
     pet.happiness = Math.min(100, pet.happiness + 25);
     pet.energy = Math.max(0, pet.energy - 15);
     pet.existentialDread = Math.max(0, pet.existentialDread - 10);
+    startMiniGame();
+}
+
+function doCosmiccardio() {
     pet.state = 'run';
     updatePetSprite();
-    showThought("Woohoo! Astral projection time!");
+    showThought("Time to outrun my existential dread!");
+    pet.energy = Math.max(0, pet.energy - 20);
+    pet.happiness = Math.min(100, pet.happiness + 10);
+    updateUI();
+    
     setTimeout(() => {
         pet.state = 'idle';
         updatePetSprite();
-    }, 5000);
-    startMiniGame();
+        showThought("Phew! That was a cosmic workout!");
+    }, 4000);
 }
 
 // Mini-game function
@@ -101,6 +114,7 @@ function startMiniGame() {
     target.style.width = '20px';
     target.style.height = '20px';
     target.style.backgroundColor = 'red';
+    target.style.borderRadius = '50%';
     target.style.position = 'absolute';
     gameArea.appendChild(target);
 
@@ -113,17 +127,23 @@ function startMiniGame() {
 
     moveTarget();
 
+    let hits = 0;
+    const maxHits = 5;
+    
     target.onclick = () => {
+        hits++;
         pet.energy = Math.min(100, pet.energy + 5);
         pet.happiness = Math.min(100, pet.happiness + 5);
         moveTarget();
         updateUI();
+        
+        if (hits >= maxHits) {
+            document.getElementById('miniGame').classList.add('hidden');
+            showThought("Woohoo! Astral projection mastered!");
+        }
     };
 
     document.getElementById('miniGame').classList.remove('hidden');
-    setTimeout(() => {
-        document.getElementById('miniGame').classList.add('hidden');
-    }, 10000);
 }
 
 // UI update function
@@ -140,7 +160,9 @@ function showThought(thought) {
     const thoughtText = document.getElementById('petThoughts');
     thoughtText.textContent = thought;
     thoughtBubble.classList.remove('hidden');
+    thoughtBubble.classList.add('visible');
     setTimeout(() => {
+        thoughtBubble.classList.remove('visible');
         thoughtBubble.classList.add('hidden');
     }, 3000);
 }
@@ -154,12 +176,16 @@ document.querySelectorAll('.food-item').forEach(item => {
     item.addEventListener('click', (e) => {
         const food = e.currentTarget.getAttribute('data-food');
         feedPet(food);
-        document.getElementById('feedMenu').classList.add('hidden');
     });
 });
 
-document.getElementById('petBtn').addEventListener('click', petPet);
 document.getElementById('playBtn').addEventListener('click', playWithPet);
+document.getElementById('sportBtn').addEventListener('click', doCosmiccardio);
+
+// Swipe to pet
+const petElement = document.getElementById('pet');
+const hammer = new Hammer(petElement);
+hammer.on('swipe', petPet);
 
 // Game loop
 function gameLoop() {
@@ -177,7 +203,12 @@ setInterval(() => {
         "I think, therefore I am... I think.",
         "What if we're all just code in a cosmic computer?",
         "Meow... I mean, beep boop!",
-        "I wonder if Schrödinger's cat is hiring."
+        "I wonder if Schrödinger's cat is hiring.",
+        "Do androids dream of electric sheep?",
+        "To be, or not to be... that is the quantum question.",
+        "I'm not lazy, I'm on energy-saving mode.",
+        "Error 404: Meaning of life not found.",
+        "I'm not antisocial, I'm selectively social."
     ];
     if (Math.random() < 0.3) { // 30% chance of a random thought
         showThought(thoughts[Math.floor(Math.random() * thoughts.length)]);
