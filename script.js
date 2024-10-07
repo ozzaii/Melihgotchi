@@ -40,7 +40,7 @@ function updatePetState() {
 function updatePetSprite() {
     const petElement = document.getElementById('pet');
     petElement.src = `https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif`;
-    petElement.className = pet.state; // Add this line
+    petElement.className = `pet-sprite ${pet.state}`; // Updated this line
 }
 
 // Interaction functions
@@ -93,6 +93,7 @@ function playWithPet() {
 }
 
 function doCosmiccardio() {
+    const petElement = document.getElementById('pet');
     pet.state = 'run';
     updatePetSprite();
     showThought("Time to outrun my existential dread!");
@@ -100,8 +101,11 @@ function doCosmiccardio() {
     pet.happiness = Math.min(100, pet.happiness + 10);
     updateUI();
     
-    // Force a repaint to trigger the animation
+    // Force a repaint and start the animation
     petElement.offsetHeight;
+    petElement.style.animation = 'none';
+    petElement.offsetHeight; // trigger reflow
+    petElement.style.animation = null;
     
     setTimeout(() => {
         pet.state = 'idle';
