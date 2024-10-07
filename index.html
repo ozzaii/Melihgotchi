@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmic Pet: Uzungöl's Digital Lifeform</title>
+    <title>Melih's Cosmic Pet</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 </head>
 <body>
     <div class="game-container">
@@ -19,40 +19,40 @@
             <div id="petSpeech"></div>
             <div id="emotionParticles"></div>
         </div>
-        
+
         <div class="stats-container">
             <div class="stat">
-                <label>Cosmic Energy:</label>
+                Cosmic Energy:
                 <div class="stat-bar">
                     <div id="energyBar" class="bar-fill"></div>
                 </div>
             </div>
             <div class="stat">
-                <label>Interdimensional Hunger:</label>
+                Interdimensional Hunger:
                 <div class="stat-bar">
                     <div id="hungerBar" class="bar-fill"></div>
                 </div>
             </div>
             <div class="stat">
-                <label>Quantum Happiness:</label>
+                Quantum Happiness:
                 <div class="stat-bar">
                     <div id="happinessBar" class="bar-fill"></div>
                 </div>
             </div>
             <div class="stat">
-                <label>Existential Dread:</label>
+                Existential Dread:
                 <div class="stat-bar">
                     <div id="dreadBar" class="bar-fill"></div>
                 </div>
             </div>
         </div>
-        
+
         <div class="controls">
             <button id="feedBtn" class="cosmic-btn">Nourish</button>
             <button id="playBtn" class="cosmic-btn">Transcend</button>
             <button id="sportBtn" class="cosmic-btn">Cosmic Cardio</button>
         </div>
-        
+
         <div id="feedMenu" class="feed-menu hidden">
             <div class="food-item" data-food="cosmic-burger">
                 <img src="https://img.icons8.com/color/48/000000/hamburger.png" alt="Cosmic Burger">
@@ -67,14 +67,14 @@
                 <span>Etheric Salad</span>
             </div>
         </div>
-        
+
         <div id="miniGame" class="hidden">
             <h2>Astral Projection Training</h2>
             <div id="gameArea"></div>
-            <button id="startMiniGame" class="cosmic-btn">Start Training</button>
+            <button id="startTraining" class="cosmic-btn">Start Training</button>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>
