@@ -39,7 +39,7 @@ function updatePetState() {
 // Update pet sprite based on state
 function updatePetSprite() {
     const petElement = document.getElementById('pet');
-    petElement.style.backgroundImage = `url('https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif')`;
+    petElement.src = `https://raw.githubusercontent.com/ozzaii/Melihgotchi/main/${pet.state}.lq.gif`;
     petElement.className = `pet-sprite ${pet.state}`;
 }
 
@@ -93,12 +93,16 @@ function playWithPet() {
 }
 
 function doCosmiccardio() {
+    const petElement = document.getElementById('pet');
     pet.state = 'run';
     updatePetSprite();
     showThought("Time to outrun my existential dread!");
     pet.energy = Math.max(0, pet.energy - 20);
     pet.happiness = Math.min(100, pet.happiness + 10);
     updateUI();
+    
+    // Force a repaint
+    petElement.offsetHeight;
     
     setTimeout(() => {
         pet.state = 'idle';
